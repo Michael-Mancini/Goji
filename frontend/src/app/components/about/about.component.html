@@ -1,0 +1,40 @@
+<h1 style="float: left;">About</h1>
+<button mat-button color="primary" style="float: right; margin-top: 25px;" [disabled]="!showPbar" (click)="doneReading()">I'm finished reading</button>
+<mat-progress-bar *ngIf="showPbar; else breaks" mode="indeterminate"></mat-progress-bar>
+<ng-template #breaks>
+  <br><br><br><br>
+</ng-template>
+<p>This is the Material Design section. Each tab describes the elements used and where to find them on the site.</p>
+
+<mat-tab-group class="tab-group">
+  <mat-tab label="UI">
+    <div class="tab-content">
+      <p>The Nav <strong>Toolbar</strong> is used at the top of the page, with the toggle button for the <strong>Side-Nav</strong> and <strong>Menu</strong> button for switching UI libraries.</p>
+      <p>The About section of the Side-Nav contains the <strong>Tab</strong> layout element with <strong>Material Icons</strong> in one of the tab labels. I used an <strong>Indeterminate Progress Bar</strong> that goes away when the user is 'finished reading'.</p>
+      <p>The Form section contains <strong>DatePicker, Input, Radio, Checkbox, Select, Slide Toggle,</strong> and <strong>Button</strong> elements integrated with the ngForm module for validation and data-binding. A <strong>Determinate Progress Bar</strong> is used for indicating the completion of the form before the submit button is enabled. On submit a <strong>SnackBar</strong> element is used as an alert message, the form fields reset, and an http request is made through a service to post the data.</p>
+      <p>The Display section uses a service to make a get request and display the entries using the <strong>Card</strong> layout element with <strong>Chips</strong> for various fields. There is also a <strong>Dialog Modal</strong> used to insert credit card info for certain entries. An <strong>Indeterminate Progress Spinner</strong> is used that the user can stop by finishing reading.</p>
+    </div>
+  </mat-tab>
+  <mat-tab label="Back-end">
+    <div class="tab-content">
+      This application is currently using MongoDB as the database, with the intention of switching to ReThinkDB. Node is used for the basic server setup, and express for the routes.
+    </div>
+  </mat-tab>
+  <mat-tab label="Food">
+    <ng-template mat-tab-label>
+      <mat-icon>restaurant</mat-icon><span style="padding-left: 10px; padding-right: 10px;">Food</span><mat-icon>restaurant_menu</mat-icon>
+    </ng-template>
+    <div class="tab-content" style="text-align: center">
+      <p>Some good foods:</p>
+      <ul style="width: 20%; margin: auto; text-align: left;">
+        <li>Salmon</li>
+        <li>Chicken</li>
+        <li>Cow</li>
+        <li>Pig</li>
+        <li>Grains</li>
+        <li>Wheat</li>
+        <li>Oats</li>
+      </ul>
+    </div>
+  </mat-tab>
+</mat-tab-group>

@@ -1,0 +1,41 @@
+<div>
+  <h3>Completion status:</h3>
+  <mat-progress-bar [color]="color" [value]="completion" mode="determinate"></mat-progress-bar>
+</div>
+
+<form #frm="ngForm" (ngSubmit)="onSubmit(frm)" style="padding: 10px;">
+  <h2 style="display:inline-block; margin-right:30px">Fill out the form</h2>
+  <mat-slide-toggle [color]='color' (click)="changeColor()">Toggle Red</mat-slide-toggle>
+  <br>
+  <mat-form-field>
+    <input matInput placeholder="Enter name" name="name" ngModel required (input)="completeSection($event)">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Select" name="type" ngModel required>
+      <mat-option value="Dine In" (click)="completeSelect()">Dine In</mat-option>
+      <mat-option value="Take Out" (click)="completeSelect()">Take Out</mat-option>
+      <mat-option value="Delivery" (click)="completeSelect()">Delivery</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <br>
+  <mat-checkbox [color]='color' [(ngModel)]="guacamole" name="gaucamole">Add guacamole? <span style="font-size:12px">({{1 | currency}} extra)</span></mat-checkbox>
+  <br>
+  <br>
+  <p>Do you give us permission to sell your personal info to 3rd party companies?</p>
+  <mat-radio-group class="radg" name="sellInfo" [(ngModel)]="sellInfo" required (click)="completeInfo()">
+    <mat-radio-button class="radb" value="true" [color]='color'>Yes</mat-radio-button>
+    <mat-radio-button class="radb" value="false" [color]='color'>No</mat-radio-button>
+  </mat-radio-group>
+  <br>
+  <br>
+  <h4 style="padding-bottom:5px;margin-bottom:0;">When would you like your food delivered?</h4>
+  <mat-form-field>
+    <input matInput [matDatepicker]="dp" placeholder="Choose date" ngModel name="date" required (dateInput)="completeDate()">
+    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+    <mat-datepicker #dp disabled="false"></mat-datepicker>
+  </mat-form-field>
+  <br>
+
+  <button mat-raised-button [color]='color' [disabled]=frm.invalid >Place Order</button>
+</form>

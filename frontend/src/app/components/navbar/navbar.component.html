@@ -1,0 +1,32 @@
+<!--<div class="e-container" [class.is-mobile]="mobileQuery.matches">-->
+
+  <mat-toolbar color='primary'>
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h3>Toolbar with Responsive Side Nav</h3>
+    <span class="spacer"></span>
+    <button mat-button [matMenuTriggerFor]="menu">Front-end Options</button>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+      <mat-nav-list style="padding-top: 0">
+        <a mat-list-item (click)="snav.toggle()" (click)="changeContent($event)" *ngFor="let nav of snavItems" style="padding: 10px 15px; border-bottom: 1px solid rgb(161, 161, 161)">{{nav}}</a>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div style="width: 50%;margin: 0 auto">
+        <app-forms *ngIf="snavContent == 'Form'"></app-forms>
+        <app-about *ngIf="snavContent == 'About'"></app-about>
+        <app-display *ngIf="snavContent == 'Display'"></app-display>
+      </div>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>Material Design</button>
+  <button mat-menu-item>PrimeNG</button>
+</mat-menu>
