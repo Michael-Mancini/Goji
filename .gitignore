@@ -7,7 +7,7 @@ tsconfig.json
 tslint.json
 .editorconfig
 favicon.ico
-polyfill.ts
+polyfills.ts
 test.ts
 tsconfig.app.json
 tsconfig.spec.json
