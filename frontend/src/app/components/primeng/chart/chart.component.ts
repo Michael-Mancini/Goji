@@ -8,10 +8,6 @@ import { Doughnut } from '../../../models/Doughnut';
   styleUrls: ['./chart.component.css']
 })
 export class ChartComponent implements OnInit {
-  grayishCount: number;
-  peachCount: number;
-  tealCount: number;
-  brownCount: number;
 
   data: any;
 
@@ -23,25 +19,9 @@ export class ChartComponent implements OnInit {
 
   ngOnInit() {
     //retrieve color counts from db
-    this.oneTime();
-    
-    
-  }
-
-  oneTime(){
-    /*this.dService.addDoughnut().subscribe(item => {
-      console.log(item);
-    });*/
-
     this.dService.getDoughnut().subscribe(i => {
       this.doughnut = i;
-      console.log(i);
-      console.log(this.doughnut[0].grayish);
-      this.grayishCount = this.doughnut[0].grayish;
-    this.peachCount = this.doughnut[0].peach;
-    this.tealCount = this.doughnut[0].teal;
-    this.brownCount = this.doughnut[0].brown;
-    this.updateChart();
+      this.updateChart();
     });
     
   }
@@ -51,7 +31,7 @@ export class ChartComponent implements OnInit {
       labels: ['Grayish', 'Peach', 'Teal', 'Brown!'],
       datasets: [
         {
-          data: [this.grayishCount, this.peachCount, this.tealCount, this.brownCount],
+          data: [this.doughnut[0].grayish, this.doughnut[0].peach, this.doughnut[0].teal, this.doughnut[0].brown],
           backgroundColor: ['#4c5454', '#FF715B', '#1EA896', '#523F38'],
           hoverBackgroundColor: ['#9DA1A1', '#FFB1A5', '#84CFC5', '#A09692']
         }
@@ -82,7 +62,7 @@ export class ChartComponent implements OnInit {
       }
     }
     this.dService.updateDoughnut(this.doughnut[0]).subscribe(res => {
-      this.oneTime();
+      this.updateChart();
     });
   }
 

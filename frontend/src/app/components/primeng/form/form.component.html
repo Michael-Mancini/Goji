@@ -1,30 +1,30 @@
 <h1 style="display:inline-block;margin-right:20px;padding:10px;">User Registration</h1>
 <button type="button" (click)="showDialog()" pButton icon="fa-external-link-square" label="Terms of Service"></button>
 <hr>
-<form #user style="width:90%;margin:auto;">
+<form #user="ngForm" (ngSubmit)="onSubmit(user)" style="width:90%;margin:auto;">
   <div class="ui-g ui-fluid">
-    <div class="ui-g-12 ui-md-6">
+    <div class="ui-g-12 ui-md-6" style="text-align: center;">
         <p>Make a Username</p>
       <div class="ui-inputgroup">
         <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
-        <input pInputText type="text" placeholder="Username" style="width:100%" required>
+        <input pInputText type="text" name="username" placeholder="Username" style="width:100%" ngModel required>
       </div>
     </div>
     <div class="ui-g-12 ui-md-6" style="text-align: center;">
-      <p>What is your age?  **Must be at least 8</p>
-      <p-spinner placeholder="Age" size="40" [min]="8" [max]="100" required style="padding-left:10px;margin-left:5px;"></p-spinner>
+      <p>What is your age?</p>
+      <p-spinner name="age" placeholder="Age" size="40" [min]="1" [max]="100" required style="padding-left:10px;margin-left:5px;" ngModel></p-spinner>
     </div>
   </div>
   <br>
   <br>
   <div class="ui-g ui-fluid">
-    <div class="ui-g-12 ui-md-6">
+    <div class="ui-g-12 ui-md-6" style="text-align: center;">
       <p>Select profile picture (Disabled)</p>
       <p-fileUpload mode="basic" name="profilePic" accept="image/*" (onUpload)="onUpload($event)" disabled="true"></p-fileUpload>
     </div>
     <div class="ui-g-12 ui-md-6" style="text-align: center;">
       <p>Pick a day you are looking forward to!</p>
-      <p-calendar [showIcon]="true" required></p-calendar>
+      <p-calendar name="day" [showIcon]="true" ngModel required></p-calendar>
     </div>
   </div>
   <br>
@@ -32,7 +32,7 @@
   <div class="ui-g ui-fluid">
     <div class="ui-g-12">
       <p>If you could have a gigantic billboard with anything on it, what would it say?</p>
-      <textarea pInputTextarea autoResize="autoResize" name="message" cols="30" rows="5" placeholder="Type here..." required></textarea>
+      <textarea pInputTextarea autoResize="autoResize" name="message" cols="30" rows="5" placeholder="Type here..." ngModel required></textarea>
     </div>
   </div>
   <br>

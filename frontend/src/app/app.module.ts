@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
+//import { UIRouterModule } from '@uirouter/angular';
 // Material
 import {
   MatAutocompleteModule,
@@ -50,8 +51,11 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CalendarModule } from 'primeng/calendar';
 import { FileUploadModule } from 'primeng/fileupload';
 import { DialogModule } from 'primeng/dialog';
+import { PickListModule } from 'primeng/picklist';
+import { TableModule } from 'primeng/table';
 // Custom
 import { DataService } from './services/data.service';
+import { UserService } from './services/user.service';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -63,12 +67,26 @@ import { InitialPathComponent } from './components/initial-path/initial-path.com
 import { MenubarComponent } from './components/primeng/menubar/menubar.component';
 import { ChartComponent } from './components/primeng/chart/chart.component';
 import { FormComponent } from './components/primeng/form/form.component';
+import { InfoComponent } from './components/primeng/info/info.component';
+import { PicklistComponent } from './components/primeng/picklist/picklist.component';
+import { TableComponent } from './components/primeng/table/table.component';
 
 const appRoutes: Routes = [
   {path:'', component:InitialPathComponent},
   {path:'material', component:NavbarComponent},
-  {path:'primeng', component:PrimengComponent}
+  {path:'primeng', component:PrimengComponent, children: [
+    {path: '', component:InfoComponent},
+    {path: 'info', component:InfoComponent},
+    {path: 'chart', component:ChartComponent},
+    {path: 'form', component:FormComponent},
+    {path: 'picklist', component:PicklistComponent},
+    {path: 'table', component:TableComponent}
+  ]}
 ];
+
+// UI Router states
+let formState = { name: 'form', url: '/form', component: FormComponent};
+let chartState = { name: 'chart', url: '/chart', component: ChartComponent};
 
 @NgModule({
   declarations: [
@@ -82,7 +100,10 @@ const appRoutes: Routes = [
     InitialPathComponent,
     MenubarComponent,
     ChartComponent,
-    FormComponent
+    FormComponent,
+    InfoComponent,
+    PicklistComponent,
+    TableComponent
   ],
   entryComponents: [DialogOverview],
   imports: [
@@ -91,6 +112,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
+    //UIRouterModule.forRoot({states: [formState, chartState], useHash: true}),
     //PrimeNG
     MenuModule,
     MenubarModule,
@@ -102,6 +124,8 @@ const appRoutes: Routes = [
     CalendarModule,
     FileUploadModule,
     DialogModule,
+    PickListModule,
+    TableModule,
     //Material
     MatAutocompleteModule,
     MatButtonModule,
@@ -135,7 +159,7 @@ const appRoutes: Routes = [
     MatTooltipModule,
     MatStepperModule  
   ],
-  providers: [DataService],
+  providers: [DataService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

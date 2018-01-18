@@ -33,6 +33,9 @@ app.use('/api', material);
 const doughnut = require('./routes/doughnut');
 app.use('/api2', doughnut);
 
+const users = require('./routes/users');
+app.use('/users', users);
+
 //port listen
 const port = 3000;
 app.listen(port, () => {

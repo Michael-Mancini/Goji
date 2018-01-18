@@ -20,23 +20,26 @@ export class MenubarComponent implements OnInit {
     this.menuItems = [
       {
         label: 'Info',
-        icon: 'fa-info'
+        icon: 'fa-info',
+        routerLink: ['info']
       },
       {
         label: 'Form',
-        icon: 'fa-file-o'
+        icon: 'fa-file-o',
+        routerLink: ['form']
       },
       {
         label: 'Chart',
-        icon: 'fa-pie-chart'
+        icon: 'fa-pie-chart',
+        routerLink: ['chart']
       },
       {
         label: 'Data Display',
         items: [
-          {label: 'Picklist', icon: 'fa-arrows-h'},
-          {label: 'Tree', icon: 'fa-tree'},
-          {label: 'Turbo/DataTable', icon: 'fa-table'},
-          {label: 'TreeTable', icon: 'fa-object-ungroup'}
+          {label: 'Picklist', icon: 'fa-arrows-h', routerLink: ['picklist']},
+          {label: 'Tree', icon: 'fa-tree', disabled: true},
+          {label: 'Turbo/DataTable', icon: 'fa-table', routerLink: ['table']},
+          {label: 'TreeTable', icon: 'fa-object-ungroup', disabled: true}
         ]
       }
     ];
@@ -45,6 +48,9 @@ export class MenubarComponent implements OnInit {
   dropChange(e){
     if(e.value.name == "Material Design"){
       this.router.navigate(['/material']);
+    }
+    if(e.value.name == "PrimeNG"){
+      this.router.navigate(['/primeng']);
     }
   }
 

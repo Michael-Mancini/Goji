@@ -1,0 +1,12 @@
+<h1>Data PickList</h1>
+<p>With Drag & Drop functionality</p>
+<br>
+
+<p-pickList [source]="users" [target]="ptarget" sourceHeader="Users" targetHeader="Cool Users" [responsive]="true" filterBy="name" dragdrop="true" dragdropScope="users" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name" [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}">
+  <ng-template let-user pTemplate="item">
+    <div class="ui-helper-clearfix">
+      <div style="font-size:14px;margin:15px 5px 0 0;">{{user.username}} ({{user.age}}) - {{user.message}} - {{user.day | date}}</div>
+    </div>
+  </ng-template>
+</p-pickList>
+<br><br>
