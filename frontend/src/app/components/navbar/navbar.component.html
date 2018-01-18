@@ -6,7 +6,7 @@
     </button>
     <h3>Toolbar with Responsive Side Nav</h3>
     <span class="spacer"></span>
-    <button mat-button [matMenuTriggerFor]="menu">Front-end Options</button>
+    <button mat-button [matMenuTriggerFor]="menu">Choose library</button>
   </mat-toolbar>
 
   <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
@@ -27,6 +27,6 @@
   </mat-sidenav-container>
 
 <mat-menu #menu="matMenu">
-  <button mat-menu-item>Material Design</button>
-  <button mat-menu-item>PrimeNG</button>
+  <button mat-menu-item routerLink="/material">Material Design</button>
+  <button mat-menu-item routerLink="/primeng">PrimeNG</button>
 </mat-menu>

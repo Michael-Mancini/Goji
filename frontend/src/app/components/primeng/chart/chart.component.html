@@ -1,0 +1,9 @@
+<h2>Doughnut Chart</h2>
+<p>The color counts are stored in a database so they represent clicks from everyone who has come to this page!</p>
+<hr>
+<button pButton (click)="donutClick($event)" type="button" label="Grayish" style="background-color: #4c5454; color: white"></button>
+<button pButton type="button" label="Peach" (click)="donutClick($event)" style="background-color: #ff715b; color: white;"></button>
+<button pButton type="button" (click)="donutClick($event)" label="Teal" style="background-color: #1ea896; color: white;"></button>
+<button pButton type="button" label="Brown!" style="background-color: #523f38; color: white;" (click)="donutClick($event)"></button>
+<br><br>
+<p-chart type="doughnut" [data]="data"></p-chart>

@@ -27,8 +27,11 @@ app.get('/', (req, res) => {
     res.send('hehehe');
 });
 
-const crud = require('./routes/crud');
-app.use('/api', crud);
+const material = require('./routes/material');
+app.use('/api', material);
+
+const doughnut = require('./routes/doughnut');
+app.use('/api2', doughnut);
 
 //port listen
 const port = 3000;
