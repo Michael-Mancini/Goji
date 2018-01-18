@@ -1,9 +1,11 @@
 # Project using nearly all of the elements in various libraries
 
-The progress bar on in the forms component using Material Design is pretty noteworthy.
+Will deploy soon...
 
-## TODO
+### Noteworthy features
 
-* PrimeNG pages
-* UI Router instead of ngRouter
-* ReThinkDB instead of MongoDB
+* Progress bar tracking form completion in Material section
+* SOOO many routes in Express. I think I could set the world record for setting up a Rest API. (Stay tuned)
+* Doughnut chart
+* Full crud functionality in the data table tab in the PrimeNG section
+* Plus many more!!
