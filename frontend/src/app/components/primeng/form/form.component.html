@@ -1,3 +1,50 @@
-<p>
-  form works!
-</p>
+<h1 style="display:inline-block;margin-right:20px;padding:10px;">User Registration</h1>
+<button type="button" (click)="showDialog()" pButton icon="fa-external-link-square" label="Terms of Service"></button>
+<hr>
+<form #user style="width:90%;margin:auto;">
+  <div class="ui-g ui-fluid">
+    <div class="ui-g-12 ui-md-6">
+        <p>Make a Username</p>
+      <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+        <input pInputText type="text" placeholder="Username" style="width:100%" required>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-6" style="text-align: center;">
+      <p>What is your age?  **Must be at least 8</p>
+      <p-spinner placeholder="Age" size="40" [min]="8" [max]="100" required style="padding-left:10px;margin-left:5px;"></p-spinner>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="ui-g ui-fluid">
+    <div class="ui-g-12 ui-md-6">
+      <p>Select profile picture (Disabled)</p>
+      <p-fileUpload mode="basic" name="profilePic" accept="image/*" (onUpload)="onUpload($event)" disabled="true"></p-fileUpload>
+    </div>
+    <div class="ui-g-12 ui-md-6" style="text-align: center;">
+      <p>Pick a day you are looking forward to!</p>
+      <p-calendar [showIcon]="true" required></p-calendar>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="ui-g ui-fluid">
+    <div class="ui-g-12">
+      <p>If you could have a gigantic billboard with anything on it, what would it say?</p>
+      <textarea pInputTextarea autoResize="autoResize" name="message" cols="30" rows="5" placeholder="Type here..." required></textarea>
+    </div>
+  </div>
+  <br>
+  <br>
+  <button pButton type="submit" label="Submit"></button>
+  
+  <p-dialog header="Terms of Service" [(visible)]="privacyDialog" modal="modal" width="300" [responsive]="true">
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit voluptate, autem iusto quasi illum hic temporibus quos praesentium magni. Quia hic amet explicabo vitae optio! Minus inventore voluptate alias vero?</p>
+    <p-footer>
+        <button type="button" pButton icon="fa-check" (click)="privacyDialog=false" label="Agree"></button>
+        <button type="button" pButton icon="fa-close" (click)="privacyDialog=false" label="No"></button>
+    </p-footer>
+  </p-dialog>
+</form>
+<br><br><br>

@@ -45,6 +45,11 @@ import { MenubarModule } from 'primeng/menubar';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
 import { ChartModule } from 'primeng/chart';
+import { SpinnerModule } from 'primeng/spinner';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { CalendarModule } from 'primeng/calendar';
+import { FileUploadModule } from 'primeng/fileupload';
+import { DialogModule } from 'primeng/dialog';
 // Custom
 import { DataService } from './services/data.service';
 
@@ -92,6 +97,11 @@ const appRoutes: Routes = [
     DropdownModule,
     ButtonModule,
     ChartModule,
+    SpinnerModule,
+    InputTextareaModule,
+    CalendarModule,
+    FileUploadModule,
+    DialogModule,
     //Material
     MatAutocompleteModule,
     MatButtonModule,
