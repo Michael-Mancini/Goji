@@ -1,6 +1,6 @@
 # Project using nearly all of the elements in various libraries
 
-Will deploy soon...
+Having deployment troubles
 
 ### Noteworthy features
 
