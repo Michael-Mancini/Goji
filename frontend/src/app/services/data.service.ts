@@ -1,47 +1,43 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
-import 'rxjs/add/operator/map';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import { Item } from '../models/Item';
+import { Doughnut } from '../models/Doughnut';
+
+const httpOptions = {
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
+};
 
 @Injectable()
 export class DataService {
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
-  getItems(){
-    return this.http.get('http://localhost:3000/api/items')
-    .map(res => res.json());
+  // Remove http://localhost:3000/ before hosting on node server
+
+  // Material requests
+  getItems(): Observable<Item[]>{
+    return this.http.get<Item[]>('api/items');
   }
 
-  getDoughnut(){
-    return this.http.get('http://localhost:3000/api2/doughnuts')
-    .map(res => res.json());
-  }
-
-  addItem(newItem){
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    
-    return this.http.post('http://localhost:3000/api/item', newItem, {headers:headers})
-    .map(res => res.json());
-  }
-
-  addDoughnut(){
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-
-    return this.http.post('http://localhost:3000/api2/doughnutPost', {headers: headers})
-    .map(res => res.json());
-  }
-
-  updateDoughnut(newDoughnut){
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    return this.http.put('http://localhost:3000/api2/doughnut/'+newDoughnut._id, newDoughnut, {headers:headers})
-    .map(res => res.json());
+  addItem(newItem: Item): Observable<Item>{
+    return this.http.post<Item>('api/item', newItem, httpOptions);
   }
 
   deleteItem(id){
-    return this.http.delete('http://localhost:3000/api/item/'+id)
-    .map(res => res.json());
+    return this.http.delete('api/item/'+id, httpOptions);
+  }
+
+  // Doughnut Chart/Button requests
+  getDoughnut(): Observable<Doughnut[]>{
+    return this.http.get<Doughnut[]>('api2/doughnuts');
+  }
+
+  addDoughnut(){
+    return this.http.post('api2/doughnutPost', httpOptions);
+  }
+
+  updateDoughnut(newDoughnut: Doughnut): Observable<Doughnut>{
+    return this.http.put<Doughnut>('api2/doughnut/'+newDoughnut._id, newDoughnut, httpOptions);
   }
 }

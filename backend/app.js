@@ -3,12 +3,17 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyparser = require('body-parser');
 const cors = require('cors');
+const path = require('path');
 
 //initialize express variable
 var app = express();
 
 //DB connection
-mongoose.connect('mongodb://localhost:27017/goji', {
+
+// Map global promise to get rid of deprecation warning
+mongoose.Promise = global.Promise;
+
+mongoose.connect('mongodb://mikey:agonyvii@ds119064.mlab.com:19064/goji', {
     useMongoClient: true
 });
 mongoose.connection.on('connected', () => {
@@ -22,9 +27,12 @@ mongoose.connection.on('error', (err) => {
 app.use(cors());
 app.use(bodyparser.json());
 
+//static assets
+app.use(express.static(path.join(__dirname, 'public')));
+
 //route links
-app.get('/', (req, res) => {
-    res.send('hehehe');
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
 const material = require('./routes/material');
@@ -37,7 +45,7 @@ const users = require('./routes/users');
 app.use('/users', users);
 
 //port listen
-const port = 3000;
+const port = process.env.PORT || 8080;
 app.listen(port, () => {
     console.log('Server started on port: ' + port)
 });

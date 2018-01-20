@@ -1,35 +1,33 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
-import 'rxjs/add/operator/map';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import { User } from '../models/User';
+
+const httpHead = {
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
+};
 
 @Injectable()
 export class UserService {
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
-  getUsers(){
-    return this.http.get('http://localhost:3000/users')
-    .map(res => res.json());
+  // Remove http://localhost:3000/ for deployment
+
+  getUsers(): Observable<User[]>{
+    return this.http.get<User[]>('users');
   }
 
-  addUser(newUser){
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-
-    return this.http.post('http://localhost:3000/users', newUser, {headers:headers})
-    .map(res => res.json());
+  addUser(newUser: User): Observable<User>{
+    return this.http.post<User>('users', newUser, httpHead);
   }
 
-  updateUser(newUser){
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    return this.http.put('http://localhost:3000/users/'+newUser._id, newUser, {headers:headers})
-    .map(res => res.json());
+  updateUser(newUser: User): Observable<User>{
+    return this.http.put<User>('users/'+newUser._id, newUser, httpHead);
   }
 
   deleteUser(id){
-    return this.http.delete('http://localhost:3000/users/'+id)
-    .map(res => res.json());
+    return this.http.delete('users/'+id, httpHead);
   }
 
 }

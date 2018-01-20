@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import 'hammerjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 //import { UIRouterModule } from '@uirouter/angular';
 // Material
@@ -110,7 +110,7 @@ let chartState = { name: 'chart', url: '/chart', component: ChartComponent};
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     RouterModule.forRoot(appRoutes),
     //UIRouterModule.forRoot({states: [formState, chartState], useHash: true}),
     //PrimeNG
