@@ -1,5 +1,7 @@
 node_modules/
 e2e/
+assets/
+environments/
 package-lock.json
 karma.conf.js
 protractor.conf.js
