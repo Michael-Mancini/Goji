@@ -8,11 +8,12 @@ import { User } from '../../../models/User';
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
-  users: User[];
+  users;
   displayDialog: boolean;
   selectedUser: User;
   addUser: boolean;
   user;
+  test;
 
   cols: any[] = [
     {field: 'username', header: 'Username'},

@@ -18,12 +18,17 @@ export class ChartComponent implements OnInit {
   }
 
   ngOnInit() {
-    //retrieve color counts from db
+    if(this.doughnut == undefined){
+      // If doughnut db collection doesn't exist create doughnut
+      this.dService.addDoughnut().subscribe(i => {
+        console.log('inital doughnut added');
+      });
+    }
+      // Retrieve latest data
     this.dService.getDoughnut().subscribe(i => {
       this.doughnut = i;
       this.updateChart();
     });
-    
   }
 
   updateChart(){

@@ -17,7 +17,7 @@ export class DataService {
 
   // Material requests
   getItems(): Observable<Item[]>{
-    return this.http.get<Item[]>('api/items');
+    return this.http.get<Item[]>('api/items', httpOptions);
   }
 
   addItem(newItem: Item): Observable<Item>{

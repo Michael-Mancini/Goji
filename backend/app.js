@@ -1,15 +1,13 @@
-//imports
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyparser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 
-//initialize express variable
+//initialize express
 var app = express();
 
 //DB connection
-
 // Map global promise to get rid of deprecation warning
 mongoose.Promise = global.Promise;
 
@@ -23,26 +21,27 @@ mongoose.connection.on('error', (err) => {
     console.log(err);
 });
 
+const material = require('./routes/material');
+const doughnut = require('./routes/doughnut');
+const users = require('./routes/users');
+
 //middleware
-app.use(cors());
 app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({extended: false}));
+
+app.use(cors());
 
 //static assets
 app.use(express.static(path.join(__dirname, 'public')));
 
 //route links
+app.use('/api', material);
+app.use('/api2', doughnut);
+app.use('/users', users);
+
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'));
 });
-
-const material = require('./routes/material');
-app.use('/api', material);
-
-const doughnut = require('./routes/doughnut');
-app.use('/api2', doughnut);
-
-const users = require('./routes/users');
-app.use('/users', users);
 
 //port listen
 const port = process.env.PORT || 8080;

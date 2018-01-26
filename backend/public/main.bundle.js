@@ -358,7 +358,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/display/display.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h1 style=\"display: inline-block;\">Display</h1>\n<button mat-button (click)=\"toggleProgress()\" style=\"display: inline-block;margin-left: 20px;\">Toggle indeterminate progress spinner</button>\n<mat-spinner *ngIf=\"indeterminate\"></mat-spinner>\n\n<br><br>\n\n<div *ngFor=\"let item of items; let i = index\">\n<mat-card>\n  <mat-card-header>\n    <mat-card-title style=\"padding-top: 6px;margin-bottom: 0; font-size: 18px\">{{item.name}}</mat-card-title>\n    <mat-chip-list>\n      <mat-chip>{{item.type}}</mat-chip>\n      <mat-chip *ngIf=\"item.guacamole\">Guacamole</mat-chip>\n    </mat-chip-list>\n  </mat-card-header>\n  <mat-card-content>\n    <br>\n    <p style=\"padding: 8px;font-size: 16px;\">DatePicker date: {{item.datePicker | date }}</p>\n  </mat-card-content>\n  <mat-card-actions>\n    <p *ngIf=\"item.sellInfo;else noInfo\">Purchase this customers personal info: <button mat-button  (click)=\"openDialog(i)\" class=\"onlyFive\">Only $5!</button></p>\n    <p *ngIf=\"cc && currentIndex == i\">Your credit card number: {{cc}}</p>\n    <ng-template #noInfo><i style=\"padding: 12px;\">This customer's info is not for sale.</i></ng-template>\n  </mat-card-actions>\n</mat-card>\n<br>\n</div>\n<br>\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae, quis. Eum perspiciatis dolorum voluptatibus, excepturi aperiam et voluptatem mollitia asperiores qui, fugit soluta ratione laboriosam beatae molestiae porro non incidunt.</p>"
+module.exports = "<h1 style=\"display: inline-block;\">Display</h1>\n<button mat-button (click)=\"toggleProgress()\" style=\"display: inline-block;margin-left: 20px;\">Toggle indeterminate progress spinner</button>\n<mat-spinner *ngIf=\"indeterminate\"></mat-spinner>\n\n<br><br>\n\n<div *ngFor=\"let item of items; let i = index\">\n<mat-card>\n  <mat-card-header>\n    <mat-card-title style=\"padding-top: 6px;margin-bottom: 0; font-size: 18px\">{{item.name}}</mat-card-title>\n    <mat-chip-list>\n      <mat-chip>{{item.type}}</mat-chip>\n      <mat-chip *ngIf=\"item.guacamole\">Guacamole</mat-chip>\n    </mat-chip-list>\n  </mat-card-header>\n  <mat-card-content>\n    <br>\n    <p style=\"padding: 8px;font-size: 16px;\">DatePicker date: {{item.datePicker | date }}</p>\n  </mat-card-content>\n  <mat-card-actions>\n    <p *ngIf=\"item.sellInfo;else noInfo\" style=\"margin-left:10px;padding-left:7px;\">Purchase this customers personal info: <button mat-button  (click)=\"openDialog(i)\" class=\"onlyFive\">Only $5!</button></p>\n    <p *ngIf=\"cc && currentIndex == i\">Your credit card number: {{cc}}</p>\n    <ng-template #noInfo><i style=\"padding: 12px;\">This customer's info is not for sale.</i></ng-template>\n  </mat-card-actions>\n</mat-card>\n<br>\n</div>\n<br>\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae, quis. Eum perspiciatis dolorum voluptatibus, excepturi aperiam et voluptatem mollitia asperiores qui, fugit soluta ratione laboriosam beatae molestiae porro non incidunt.</p>"
 
 /***/ }),
 
@@ -789,7 +789,13 @@ var ChartComponent = (function () {
     }
     ChartComponent.prototype.ngOnInit = function () {
         var _this = this;
-        //retrieve color counts from db
+        if (this.doughnut == undefined) {
+            // If doughnut db collection doesn't exist create doughnut
+            this.dService.addDoughnut().subscribe(function (i) {
+                console.log('inital doughnut added');
+            });
+        }
+        // Retrieve latest data
         this.dService.getDoughnut().subscribe(function (i) {
             _this.doughnut = i;
             _this.updateChart();
@@ -1139,12 +1145,25 @@ var PicklistComponent = (function () {
         this.ptarget = [];
     }
     PicklistComponent.prototype.ngOnInit = function () {
+        console.log('ngOnInit called');
         this.getItems();
     };
     PicklistComponent.prototype.getItems = function () {
         var _this = this;
+        console.log('getItems called');
         this.userService.getUsers().subscribe(function (users) {
             _this.users = users;
+            console.log(_this.users);
+            console.log(users);
+        }, function (err) {
+            if (err.error instanceof Error) {
+                //client side error
+                console.log('An error occured: ', err.error.message);
+            }
+            else {
+                //backend returned unsuccessful response code
+                console.log(err.error);
+            }
         });
     };
     PicklistComponent = __decorate([
@@ -1383,7 +1402,7 @@ var DataService = (function () {
     // Remove http://localhost:3000/ before hosting on node server
     // Material requests
     DataService.prototype.getItems = function () {
-        return this.http.get('api/items');
+        return this.http.get('api/items', httpOptions);
     };
     DataService.prototype.addItem = function (newItem) {
         return this.http.post('api/item', newItem, httpOptions);

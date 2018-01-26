@@ -18,7 +18,7 @@
     <p style="padding: 8px;font-size: 16px;">DatePicker date: {{item.datePicker | date }}</p>
   </mat-card-content>
   <mat-card-actions>
-    <p *ngIf="item.sellInfo;else noInfo">Purchase this customers personal info: <button mat-button  (click)="openDialog(i)" class="onlyFive">Only $5!</button></p>
+    <p *ngIf="item.sellInfo;else noInfo" style="margin-left:10px;padding-left:7px;">Purchase this customers personal info: <button mat-button  (click)="openDialog(i)" class="onlyFive">Only $5!</button></p>
     <p *ngIf="cc && currentIndex == i">Your credit card number: {{cc}}</p>
     <ng-template #noInfo><i style="padding: 12px;">This customer's info is not for sale.</i></ng-template>
   </mat-card-actions>

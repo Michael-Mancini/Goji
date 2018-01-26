@@ -1,19 +1,24 @@
 const express = require('express');
 const router = express.Router();
+const MongoClient = require('mongodb').MongoClient;
+const ObjectID = require('mongodb').ObjectID;
 
 const User = require('../models/User');
 
 router.get('/', (req, res, next) => {
+
     User.find((err, users) => {
-        if(err){
-            res.json(err);
+        if (err) {
+            console.log(err);
         } else {
+            console.log('there is no error');
             res.json(users);
         }
     });
+
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', (req, res) => {
     let newUser = new User({
         username: req.body.username,
         age: req.body.age,
@@ -30,7 +35,7 @@ router.post('/', (req, res, next) => {
     });
 });
 
-router.put('/:id', (req, res, next) => {
+router.put('/:id', (req, res) => {
     User.findOneAndUpdate({_id: req.params.id},
     {
         $set:{
@@ -48,7 +53,7 @@ router.put('/:id', (req, res, next) => {
     });
 });
 
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', (req, res) => {
     User.remove({_id: req.params.id}, (err, result) => {
         if(err){
             res.json(err);
