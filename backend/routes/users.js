@@ -6,16 +6,14 @@ const ObjectID = require('mongodb').ObjectID;
 const User = require('../models/User');
 
 router.get('/', (req, res, next) => {
-
     User.find((err, users) => {
         if (err) {
+            res.json(err);
             console.log(err);
         } else {
-            console.log('there is no error');
             res.json(users);
         }
     });
-
 });
 
 router.post('/', (req, res) => {
